@@ -1,34 +1,47 @@
 import React from 'react';
 import './App.css';
-import logo from './assets/holbertonlogo.jpg';
-import { getFullYear, getFooterCopy } from './utils/utils';
+import Header from './Header/Header';
+import Login from './Login/Login';
+import Footer from './Footer/Footer';
+import Notifications from './notifications/Notification';
+import CourseList from "./CourseList/CourseList";
+import PropTypes from "prop-types";
+import { getLatestNotifications } from "./utils/utils";
 
-function App() {
+
+const listCourses = [
+  { id: 1, name: "ES6", credit: 60 },
+  { id: 2, name: "Webpack", credit: 20 },
+  { id: 3, name: "React", credit: 40 },
+];
+
+const listNotifications = [
+  { id: 1, type: "default", value: "New course available" },
+  { id: 2, type: "urgent", value: "New resume available" },
+  { id: 3, type: "urgent", html: getLatestNotifications() },
+];
+
+function App(isLoggedIn) {
   return (
-    <div className="App">
-      <div className="App-header">
-        <img src={logo} alt="Holberton Logo" />
-        <h1>School dashboard</h1>
+    <React.Fragment>
+      <div className="App">
+        <div className="heading-section">
+          <Notifications listNotifications={listNotifications} />
+          <Header />
+        </div>
+        {isLoggedIn ? <CourseList listCourses={listCourses} /> : <Login />}
+        <Footer />
       </div>
-      <div className="App-body">
-        <p>Login to access the full dashboard</p>
-        <form>
-          <div>
-            <label htmlFor="email">Email: </label>
-            <input type="email" id="email" name="email" />
-          </div>
-          <div>
-            <label htmlFor="password">Password: </label>
-            <input type="password" id="password" name="password" />
-          </div>
-          <button>OK</button>
-        </form>
-      </div>
-      <div className="App-footer">
-        <p>Copyright {getFullYear()} - {getFooterCopy(true)}</p>
-      </div>
-    </div>
+    </React.Fragment>
   );
 }
+
+App.defaultProps = {
+  isLoggedIn: false,
+};
+
+App.propTypes = {
+  isLoggedIn: PropTypes.bool,
+};
 
 export default App;

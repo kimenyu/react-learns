@@ -1,0 +1,17 @@
+.App-body {
+    height: 80vh;
+    padding: 30px;
+    border-bottom: 3px solid #e01d3f;
+}
+  
+.App-body p {
+    text-align: left;
+    font-size: 20px;
+    padding-top: 0%;
+}
+
+form {
+    display: flex;
+    gap: 1rem;
+    padding-top: 20px;
+  }
